@@ -13,7 +13,7 @@ io.on('connection', function (client) {
 	});
 	client.on(events.sys.REMOTE_PORT, port => {
 		debug('client.on REMOTE_PORT');
-		handler.setPort(port);
+		handler.openService(port);
 	});
 	client.on(events.DATA, pack => {
 		debug('client.on DATA');

@@ -76,8 +76,8 @@ class ServerHandler extends EventEmitter {
 		}
 	}
 
-	setPort(p) {
-		this.port = p;
+	openService(port) {
+		this.port = port;
 		this.createSockListener();
 	}
 }
