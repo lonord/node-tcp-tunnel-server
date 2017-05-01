@@ -4,7 +4,7 @@ const net = require('net');
 const shortid = require('shortid');
 const EventEmitter = require('events');
 
-const HOST = '127.0.0.1';
+const HOST = '0.0.0.0';
 
 class ServerHandler extends EventEmitter {
 	constructor() {
@@ -14,11 +14,6 @@ class ServerHandler extends EventEmitter {
 	}
 
 	createSockListener() {
-		if (this.server) {
-			this.server.removeAllListeners();
-			this.server.close();
-			this.server = null;
-		}
 		this.server = net.createServer();
 		this.server.listen(this.port, HOST);
 		this.server.on('connection', this.onClientConnected);
@@ -74,6 +69,11 @@ class ServerHandler extends EventEmitter {
 			client.destroy();
 		}
 		this.clients = {};
+		if (this.server) {
+			this.server.removeAllListeners();
+			this.server.close();
+			this.server = null;
+		}
 	}
 
 	setPort(p) {
