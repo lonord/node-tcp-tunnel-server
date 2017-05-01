@@ -1,0 +1,22 @@
+{
+  "name": "node-tcp-tunnel-server",
+  "version": "0.1.0",
+  "description": "A tcp tunnel service by node.js (server side)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "DEBUG=tunnel:* node server.js"
+  },
+  "keywords": [
+    "tcp",
+    "tunnel",
+    "node"
+  ],
+  "dependencies": {
+    "debug": "^2.6.6",
+    "shortid": "^2.2.8",
+    "socket.io": "^1.7.3"
+  },
+  "author": "Loy B.",
+  "license": "MIT"
+}
