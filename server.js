@@ -13,7 +13,12 @@ io.on('connection', function (client) {
 	});
 	client.on(events.sys.REMOTE_PORT, port => {
 		debug('client.on REMOTE_PORT');
-		handler.openService(port);
+		try {
+			handler.openService(port);
+		}
+		catch (e) {
+			client.emit(events.sys.ERROR, e.message);
+		}
 	});
 	client.on(events.DATA, pack => {
 		debug('client.on DATA');
@@ -37,4 +42,4 @@ io.on('connection', function (client) {
 		client.emit(events.DATA, pack);
 	});
 });
-io.listen(config.service.remoteListenPort);
+io.listen(config.serviceListenPort);

@@ -1,5 +1,3 @@
 module.exports = {
-	service: {
-		remoteListenPort: 13000,
-	}
+	serviceListenPort: 13000
 }
