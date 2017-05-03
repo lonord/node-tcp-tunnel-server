@@ -3,7 +3,7 @@ module.exports = {
 	DISCONNECTED: 'e-dis-conn',
 	DATA: 'e-data',
 	sys: {
-		REMOTE_PORT: 'e-remote-port',
+		INIT: 'e-init',
 		ERROR: 'e-error'
 	}
 }

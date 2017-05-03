@@ -15,7 +15,10 @@ npm start
 ## Config
 Some custom configure can be modify in `config.js`
 
-- *`serviceListenPort`* port to listen for the client
+- *`serviceListenPort`* port to listen for the client.
+- *`users`* The users allow to access.
+- *`username`* The user name for authorization.
+- *`password`* The password for authorization.
 
 ## License
 MIT

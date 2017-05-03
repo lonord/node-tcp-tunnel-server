@@ -1,8 +1,14 @@
 const debug = require('debug')('tunnel:server');
+const md5 = require('js-md5');
 const events = require('./event');
 const ServerHandler = require('./server-handler');
 const io = require('socket.io')();
 const config = require('./config');
+
+const users = config.users.map(u => {
+	u.password = md5(u.password);
+	return u;
+});
 
 io.on('connection', function (client) {
 	let handler = new ServerHandler();
@@ -11,10 +17,13 @@ io.on('connection', function (client) {
 		debug('client.on DISCONNECTED');
 		handler.handleMsgDisconnect(pack);
 	});
-	client.on(events.sys.REMOTE_PORT, port => {
-		debug('client.on REMOTE_PORT');
+	client.on(events.sys.INIT, info => {
+		debug('client.on INIT');
+		if (!findUser(info.username, info.password)) {
+			client.emit(events.sys.ERROR, 'authorization failed');
+		}
 		try {
-			handler.openService(port);
+			handler.openService(info.port);
 		}
 		catch (e) {
 			client.emit(events.sys.ERROR, e.message);
@@ -43,3 +52,12 @@ io.on('connection', function (client) {
 	});
 });
 io.listen(config.serviceListenPort);
+
+function findUser(username, password) {
+	for (let u of users) {
+		if (u.username == username && u.password == password) {
+			return true;
+		}
+	}
+	return false;
+}
